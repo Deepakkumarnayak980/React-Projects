@@ -21,12 +21,12 @@
 }
 
 .medium{
-  background-color: #EFEFEF;
+  background-color: #06e66e;
   transition: all 500ms;
 }
 
 .dark{
-  background-color: #15202B;
+  background-color: #0e7deb;
   transition: all 500ms;
 }
 
