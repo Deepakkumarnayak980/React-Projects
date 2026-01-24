@@ -1,14 +1,12 @@
-const ShowTask = ({ taskList, setTaskList, setTasks }) => {
+const ShowTask = ({ taskList = [], setTaskList, setTask }) => {
 
   const handleEdit = (id) => {
-    const selectedTask = taskList.find(task => task.id === id);
-    setTasks(selectedTask);
+    const selectedTask = taskList.find(t => t.id === id);
+    if (selectedTask) setTask(selectedTask);
   };
 
   const handleDelete = (id) => {
-    setTaskList(prev =>
-      prev.filter(task => task.id !== id)
-    );
+    setTaskList(prev => prev.filter(t => t.id !== id));
   };
 
   return (

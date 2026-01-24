@@ -1,35 +1,35 @@
-export const AddTask = ({ taskList, setTaskList, tasks, setTasks }) => {
+const AddTask = ({ taskList, setTaskList, task, setTask }) => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
+    if (!task.name.trim()) return;
+
     const date = new Date();
 
-    // EDIT MODE
-    if (tasks.id) {
-      const updatedTaskList = taskList.map(todo =>
-        todo.id === tasks.id
-          ? {
-              ...todo,
-              name: tasks.name,
-              time: `${date.toLocaleTimeString()} ${date.toLocaleDateString()}`
-            }
-          : todo
+    if (task.id) {
+      setTaskList(prev =>
+        prev.map(t =>
+          t.id === task.id
+            ? {
+                ...t,
+                name: task.name,
+                time: `${date.toLocaleTimeString()} ${date.toLocaleDateString()}`
+              }
+            : t
+        )
       );
-
-      setTaskList(updatedTaskList);
-      setTasks({}); // clear edit state
+    } else {
+      setTaskList(prev => [
+        ...prev,
+        {
+          id: date.getTime(),
+          name: task.name,
+          time: `${date.toLocaleTimeString()} ${date.toLocaleDateString()}`
+        }
+      ]);
     }
-    // ADD MODE
-    else {
-      const newTask = {
-        id: date.getTime(),
-        name: tasks.name,
-        time: `${date.toLocaleTimeString()} ${date.toLocaleDateString()}`
-      };
 
-      setTaskList(prev => [...prev, newTask]);
-      setTasks({});
-    }
+    setTask({ id: null, name: "" });
   };
 
   return (
@@ -37,17 +37,15 @@ export const AddTask = ({ taskList, setTaskList, tasks, setTasks }) => {
       <form onSubmit={handleSubmit}>
         <input
           type="text"
-          name="task"
-          value={tasks.name || ""}
-          autoComplete="off"
-          placeholder="add task"
+          placeholder="Add task"
           maxLength="25"
+          value={task.name}   
           onChange={e =>
-            setTasks(prev => ({ ...prev, name: e.target.value }))
+            setTask(prev => ({ ...prev, name: e.target.value }))
           }
         />
         <button type="submit">
-          {tasks.id ? "Update" : "Add"}
+          {task.id ? "Update" : "Add"}
         </button>
       </form>
     </section>
