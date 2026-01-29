@@ -1,9 +1,4 @@
-import React from 'react'
+export { Header } from "./Header";
+export { Footer } from "./Footer";
 
-const Index = () => {
-  return (
-    <div>index</div>
-  )
-}
-
-export default Index
+export { Card } from "./Card";
