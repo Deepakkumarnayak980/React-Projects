@@ -3,7 +3,7 @@ import React from 'react'
 const MoviesList = () => {
   return (
    <main>
-     <div className='text-2xl'>MoviesList</div>
+     <div className='text-2xl'></div>
    </main>
   )
 }
